@@ -1,15 +1,19 @@
 package com.warriorminds.firebase;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,11 +45,16 @@ public class IniciarSesionFacebookActivity extends AppCompatActivity {
      */
     private CallbackManager manejadorDeLlamadas;
 
+    // Vistas
+    private TextView textViewUsuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_iniciar_sesion_facebook);
 
+        textViewUsuario = (TextView) findViewById(R.id.usuario);
         manejadorDeLlamadas = CallbackManager.Factory.create();
 
         LoginButton botonLogin = (LoginButton) findViewById(R.id.boton_login_facebook);
@@ -67,7 +76,24 @@ public class IniciarSesionFacebookActivity extends AppCompatActivity {
             }
         });
 
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(
+                    AccessToken oldAccessToken,
+                    AccessToken currentAccessToken) {
+
+                if (currentAccessToken == null){
+                    cerrarSesionFirebase();
+                }
+            }
+        };
+
         inicializarAutenticacion();
+    }
+
+    private void cerrarSesionFirebase() {
+        autenticacionFirebase.signOut();
+        textViewUsuario.setText("");
     }
 
     /**
@@ -90,6 +116,12 @@ public class IniciarSesionFacebookActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        manejadorDeLlamadas.onActivityResult(requestCode, resultCode, data);
+    }
+
     /**
      * Método en el cual se inicializa Firebase.
      */
@@ -104,6 +136,7 @@ public class IniciarSesionFacebookActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser usuario = firebaseAuth.getCurrentUser();
                 if (usuario != null) {
+                    textViewUsuario.setText(usuario.getEmail());
                     Toast.makeText(IniciarSesionFacebookActivity.this, "Usuario: " + usuario.getEmail(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(IniciarSesionFacebookActivity.this, "Usuario sin sesión", Toast.LENGTH_SHORT).show();

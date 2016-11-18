@@ -33,5 +33,5 @@
         android:id="@+id/btnIniciarSesionFacebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/iniciar_sesion_google" />
+        android:text="@string/sesion_fb" />
 </LinearLayout>

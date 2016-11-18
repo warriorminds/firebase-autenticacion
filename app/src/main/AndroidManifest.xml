@@ -31,6 +31,9 @@
         <activity android:name=".IniciarSesionCorreoContrasenaActivity" />
         <activity android:name=".IniciarSesionGoogleActivity" />
         <activity android:name=".IniciarSesionFacebookActivity"></activity>
+
+        <!-- Agregar Facebook ID -->
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
 </manifest>

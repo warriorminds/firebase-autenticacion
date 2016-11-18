@@ -16,4 +16,9 @@
     <string name="cerrar_sesion">Cerrar Sesión</string>
     <string name="boton_iniciar_sesion">Iniciar Sesión</string>
     <string name="iniciar_sesion_google">Iniciar Sesión con Google</string>
+    <string name="sesion_fb">Iniciar sesión con Facebook</string>
+
+    <!-- IDs -->
+    <!-- TODO: agreguen su app id aquí -->
+    <string name="facebook_app_id">TU_APP_ID</string>
 </resources>

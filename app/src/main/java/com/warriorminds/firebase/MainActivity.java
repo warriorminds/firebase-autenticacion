@@ -36,5 +36,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, IniciarSesionGoogleActivity.class));
             }
         });
+
+        Button botonIniciarSesionFacebook = (Button) findViewById(R.id.btnIniciarSesionFacebook);
+        botonIniciarSesionFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, IniciarSesionFacebookActivity.class));
+            }
+        });
     }
 }
