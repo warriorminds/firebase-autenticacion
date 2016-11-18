@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Firebase</string>
+    <string name="crear_cuenta_email_password">Crear cuenta con email/password</string>
+    <string name="titulo_actividad_crear_cuenta">Crear Cuenta</string>
+
+    <!-- Strings related to login -->
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="confirmar_password">Confirmar Contraseña</string>
+    <string name="accion_iniciar_sesion">Iniciar Sesión</string>
+    <string name="accion_crear_cuenta">Crear Cuenta</string>
+    <string name="accion_crear_cuenta_corto">Crear</string>
+    <string name="passwords_son_diferentes">Passwords son diferentes.</string>
+    <string name="passwords_tamaño">Password debe ser de 6 o más letras</string>
+    <string name="hubo_error">Hubo un error.</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="boton_iniciar_sesion">Iniciar Sesión</string>
+    <string name="iniciar_sesion_google">Iniciar Sesión con Google</string>
+</resources>
