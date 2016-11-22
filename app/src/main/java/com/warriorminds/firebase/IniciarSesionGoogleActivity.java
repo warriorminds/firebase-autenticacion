@@ -26,6 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 /***
  * Esta clase implementa el inicio de sesión con Google, utilizando Firebase.
+ * Para que funcione, deben de agregar su requestIdToken en el método inicializarGoogle().
  *
  * @author warriorminds
  */
