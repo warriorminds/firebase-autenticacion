@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 24
@@ -28,6 +29,9 @@ dependencies {
 
     compile 'com.google.firebase:firebase-core:9.8.0'   // Agregar Firebase core.
     compile 'com.google.firebase:firebase-auth:9.8.0'   // Agregar Firebase para la autenticación.
+    compile('com.twitter.sdk.android:twitter:2.2.0@aar') { // Agregar para Login con Twitter
+        transitive = true;
+    }
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
 }

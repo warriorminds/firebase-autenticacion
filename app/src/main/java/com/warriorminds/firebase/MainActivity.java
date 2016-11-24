@@ -44,5 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, IniciarSesionFacebookActivity.class));
             }
         });
+
+        Button botonIniciarSesionTwitter = (Button) findViewById(R.id.btnIniciarSesionTwitter);
+        botonIniciarSesionTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, IniciarSesionTwitterActivity.class));
+            }
+        });
     }
 }

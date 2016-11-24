@@ -30,10 +30,19 @@
         </activity>
         <activity android:name=".IniciarSesionCorreoContrasenaActivity" />
         <activity android:name=".IniciarSesionGoogleActivity" />
-        <activity android:name=".IniciarSesionFacebookActivity"></activity>
+        <activity android:name=".IniciarSesionFacebookActivity" />
 
         <!-- Agregar Facebook ID -->
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <!-- Agregar para Twitter -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="TU_FABRIC_API_KEY" />
+
+        <activity android:name=".IniciarSesionTwitterActivity"></activity>
     </application>
 
 </manifest>

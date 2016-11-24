@@ -34,4 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sesion_fb" />
+
+    <Button
+        android:id="@+id/btnIniciarSesionTwitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sesion_twitter" />
 </LinearLayout>

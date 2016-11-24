@@ -17,8 +17,13 @@
     <string name="boton_iniciar_sesion">Iniciar Sesión</string>
     <string name="iniciar_sesion_google">Iniciar Sesión con Google</string>
     <string name="sesion_fb">Iniciar sesión con Facebook</string>
+    <string name="sesion_twitter">Iniciar sesión con Twitter</string>
 
     <!-- IDs -->
     <!-- TODO: agreguen su app id aquí -->
     <string name="facebook_app_id">TU_APP_ID</string>
+    <!-- TODO: Agreguen su Twitter Api Key aquí -->
+    <string name="twitter_api_key">TU_TWITTER_API_KEY</string>
+    <!-- TODO: Agreguen su Twitter Api Secret aquí -->
+    <string name="twitter_api_secret">TU_TWITTER_API_SECRET</string>
 </resources>
