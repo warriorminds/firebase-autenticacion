@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +31,10 @@ public class IniciarSesionTwitterActivity extends AppCompatActivity {
     // Boton de Twitter
     private TwitterLoginButton botonInicioSesionTwitter;
 
+    // Vistas para cerrar sesión y mostrar info de usuario.
+    private Button botonCerrarSesion;
+    private TextView textViewUsuario;
+
     // Variables que utiliza Firebase.
     /**
      * FirebaseAuth es el objeto que contiene el listener que escucha los cambios en la cuenta
@@ -44,18 +51,31 @@ public class IniciarSesionTwitterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(getString(R.string.twitter_api_key), getString(R.string.twitter_api_secret));
-        Fabric.with(this, new Twitter(authConfig));
+        /**
+         * Necesitamos crear un TwitterAuthConfig con la API KEY y API SECRET de Twitter, para después
+         * inicialicar Fabric con ese objeto. Debe hacerse antes del setContentView().
+         */
+        TwitterAuthConfig configuracionAutenticacionTwitter = new TwitterAuthConfig(getString(R.string.twitter_api_key), getString(R.string.twitter_api_secret));
+        Fabric.with(this, new Twitter(configuracionAutenticacionTwitter));
         setContentView(R.layout.activity_iniciar_sesion_twitter);
 
+        inicializarVistas();
         inicializarAutenticacion();
         inicializarTwitter();
     }
 
+    /**
+     * Agregado para que el botón de inicio de sesión de Twitter maneje el resultado de las actividades
+     * que mandó llamar.
+     *
+     * @param codigoSolicitud
+     * @param codigoResultado
+     * @param datos
+     */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        botonInicioSesionTwitter.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int codigoSolicitud, int codigoResultado, Intent datos) {
+        super.onActivityResult(codigoSolicitud, codigoResultado, datos);
+        botonInicioSesionTwitter.onActivityResult(codigoSolicitud, codigoResultado, datos);
     }
 
     /**
@@ -79,9 +99,27 @@ public class IniciarSesionTwitterActivity extends AppCompatActivity {
     }
 
     /**
+     * Método para inicializar las vistas que se usan.
+     */
+    private void inicializarVistas() {
+        botonCerrarSesion = (Button) findViewById(R.id.boton_cerrar_sesion);
+        textViewUsuario = (TextView) findViewById(R.id.usuario);
+
+        botonCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cerrarSesion();
+            }
+        });
+    }
+
+    /**
      * Método en el cual se inicializa Firebase.
      */
     private void inicializarAutenticacion() {
+        /**
+         * Obtener la instancia de FirebaseAuth.
+         */
         autenticacionFirebase = FirebaseAuth.getInstance();
 
         listenerAutenticacion = new FirebaseAuth.AuthStateListener() {
@@ -89,19 +127,42 @@ public class IniciarSesionTwitterActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser usuario = firebaseAuth.getCurrentUser();
                 if (usuario != null) {
+                    /**
+                     * El usuario ha iniciado sesión correctamente.
+                     */
+                    textViewUsuario.setText("Usuario: " + usuario.getDisplayName());
+                    botonInicioSesionTwitter.setEnabled(false);
+                    botonCerrarSesion.setVisibility(View.VISIBLE);
                     Toast.makeText(IniciarSesionTwitterActivity.this, "Usuario: " + usuario.getDisplayName(), Toast.LENGTH_SHORT).show();
                 } else {
+                    /**
+                     * El usuario aún no ha iniciado sesión.
+                     */
                     Toast.makeText(IniciarSesionTwitterActivity.this, "Usuario no ha iniciado sesión", Toast.LENGTH_SHORT).show();
                 }
             }
         };
     }
 
+    /**
+     * Método donde se inicializa Twitter para poder iniciar sesión.
+     */
     private void inicializarTwitter() {
+        /**
+         * Obtenemos el botón de inicio de sesión con Twitter.
+         */
         botonInicioSesionTwitter = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+        /**
+         * Se agregan las llamadas de regreso, callbacks, para manejar cuando se haya iniciado sesión
+         * correctamente con Twitter, o cuando hubo algún error al iniciar sesión.
+         */
         botonInicioSesionTwitter.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> resultado) {
+                /**
+                 * Si el inicio de sesión con Twitter fue exitoso, iniciamos sesión con Firebase
+                 * utilizando el resultado que nos provee Twitter.
+                 */
                 iniciarSesionConFirebase(resultado.data);
             }
 
@@ -112,17 +173,42 @@ public class IniciarSesionTwitterActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método para iniciar sesión con Firebase.
+     *
+     * @param sesionTwitter
+     */
     private void iniciarSesionConFirebase(TwitterSession sesionTwitter) {
-        AuthCredential credential = TwitterAuthProvider.getCredential(sesionTwitter.getAuthToken().token, sesionTwitter.getAuthToken().secret);
+        /**
+         * Se crea una credencial con TwitterAuthProvider y con el token y secret que nos proporciona Twitter.
+         */
+        AuthCredential credencial = TwitterAuthProvider.getCredential(sesionTwitter.getAuthToken().token, sesionTwitter.getAuthToken().secret);
 
-        autenticacionFirebase.signInWithCredential(credential)
+        /**
+         * Se inicia sesión con la credencial creada. Se agrega el OnCompleteListener para saber si
+         * se pudo iniciar sesión en Firebase o si hubo algún error.
+         */
+        autenticacionFirebase.signInWithCredential(credencial)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
-                           Toast.makeText(IniciarSesionTwitterActivity.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(IniciarSesionTwitterActivity.this, "Hubo un error", Toast.LENGTH_SHORT).show();
+                            cerrarSesion();
                         }
                     }
                 });
+    }
+
+    /**
+     * Método para cerrar sesión con Firebase y con Twitter.
+     */
+    private void cerrarSesion() {
+        autenticacionFirebase.signOut();
+        Twitter.logOut();
+
+        textViewUsuario.setText("");
+        botonCerrarSesion.setVisibility(View.GONE);
+        botonInicioSesionTwitter.setEnabled(true);
     }
 }

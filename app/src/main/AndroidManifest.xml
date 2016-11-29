@@ -28,9 +28,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.warriorminds.firebase.MainActivity" />
         </activity>
-        <activity android:name=".IniciarSesionCorreoContrasenaActivity" />
-        <activity android:name=".IniciarSesionGoogleActivity" />
-        <activity android:name=".IniciarSesionFacebookActivity" />
+        <activity android:name=".IniciarSesionCorreoContrasenaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.warriorminds.firebase.MainActivity" />
+        </activity>
+        <activity android:name=".IniciarSesionGoogleActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.warriorminds.firebase.MainActivity" />
+        </activity>
+        <activity android:name=".IniciarSesionFacebookActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.warriorminds.firebase.MainActivity" />
+        </activity>
+        <activity android:name=".IniciarSesionTwitterActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.warriorminds.firebase.MainActivity" />
+        </activity>
 
         <!-- Agregar Facebook ID -->
         <meta-data
@@ -41,8 +58,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="TU_FABRIC_API_KEY" />
-
-        <activity android:name=".IniciarSesionTwitterActivity"></activity>
     </application>
 
 </manifest>
