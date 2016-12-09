@@ -1,5 +1,6 @@
 package com.warriorminds.firebase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,12 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+/**
+ * Clase que demuestra el uso de usuarios anónimos y cómo enlazar el usuario anónimo con una cuenta.
+ *
+ * @author warriorminds
+ */
 public class UsuariosAnonimosActivity extends AppCompatActivity {
 
     // Variables que utiliza Firebase.
@@ -83,6 +90,18 @@ public class UsuariosAnonimosActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Debemos mandar llamar al método onActivityResult() de nuestro manejador de llamadas facebook.
+     *
+     * @param codigoSolicitud
+     * @param codigoResultado
+     * @param datos
+     */
+    @Override
+    protected void onActivityResult(int codigoSolicitud, int codigoResultado, Intent datos) {
+        super.onActivityResult(codigoSolicitud, codigoResultado, datos);
+        manejadorDeLlamadasFacebook.onActivityResult(codigoSolicitud, codigoResultado, datos);
+    }
 
     private void inicializarVistas() {
         botonLogin = (LoginButton) findViewById(R.id.boton_login_facebook);
@@ -117,7 +136,7 @@ public class UsuariosAnonimosActivity extends AppCompatActivity {
          */
         botonLogin.registerCallback(manejadorDeLlamadasFacebook, new FacebookCallback<LoginResult>() {
             /**
-             * Si fue exitoso el inicio de sesión, iniciamos sesión con Firebase. Necesitamos el
+             * Si fue exitoso el inicio de sesión, enlazamos la cuenta con el usuario anónimo. Necesitamos el
              * Access Token que obtenemos de Facebook para esto.
              * @param resultadoInicioSesionFacebook
              */
@@ -188,6 +207,9 @@ public class UsuariosAnonimosActivity extends AppCompatActivity {
         };
     }
 
+    /**
+     * Método para autenticar anóninamente a un usuario.
+     */
     private void autenticarAnonimamente() {
         autenticacionFirebase.signInAnonymously()
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -205,6 +227,13 @@ public class UsuariosAnonimosActivity extends AppCompatActivity {
         botonLogin.setEnabled(false);
     }
 
+    /**
+     * Se obtiene la credencial dependiendo del proveedor que se utilice, en este caso Facebook,
+     * para posteriormente obtener el currentUser() y hacer linkWithCredential().
+     *
+     * Si se utiliza una cuenta que esté asociada ya anteriormente, marcará un error.
+     * @param tokenDeAcceso
+     */
     private void enlazarCuentas(AccessToken tokenDeAcceso) {
         AuthCredential credencial = FacebookAuthProvider.getCredential(tokenDeAcceso.getToken());
 
