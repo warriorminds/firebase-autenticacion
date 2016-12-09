@@ -18,6 +18,7 @@
     <string name="iniciar_sesion_google">Iniciar Sesión con Google</string>
     <string name="sesion_fb">Iniciar sesión con Facebook</string>
     <string name="sesion_twitter">Iniciar sesión con Twitter</string>
+    <string name="sesion_anonima">Iniciar sesión anónima</string>
 
     <!-- IDs -->
     <!-- TODO: agreguen su app id aquí -->

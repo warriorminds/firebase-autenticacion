@@ -40,4 +40,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sesion_twitter" />
+
+    <Button
+        android:id="@+id/btnIniciarSesionAnonima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sesion_anonima" />
 </LinearLayout>

@@ -52,5 +52,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, IniciarSesionTwitterActivity.class));
             }
         });
+
+        Button botonIniciarSesionAnonima = (Button) findViewById(R.id.btnIniciarSesionAnonima);
+        botonIniciarSesionAnonima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, UsuariosAnonimosActivity.class));
+            }
+        });
     }
 }

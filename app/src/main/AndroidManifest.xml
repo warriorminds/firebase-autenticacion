@@ -58,6 +58,12 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="TU_FABRIC_API_KEY" />
+
+        <activity android:name=".UsuariosAnonimosActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.warriorminds.firebase.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
