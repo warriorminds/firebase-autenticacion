@@ -12,38 +12,16 @@
     tools:context="com.warriorminds.firebase.MainActivity">
 
     <Button
-        android:id="@+id/btnCrearEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/crear_cuenta_email_password" />
-
-    <Button
         android:id="@+id/btnIniciarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/boton_iniciar_sesion" />
 
     <Button
-        android:id="@+id/btnIniciarSesionGoogle"
+        android:id="@+id/btnCerrarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/iniciar_sesion_google" />
+        android:text="@string/cerrar_sesion"
+        android:visibility="gone" />
 
-    <Button
-        android:id="@+id/btnIniciarSesionFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sesion_fb" />
-
-    <Button
-        android:id="@+id/btnIniciarSesionTwitter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sesion_twitter" />
-
-    <Button
-        android:id="@+id/btnIniciarSesionAnonima"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sesion_anonima" />
 </LinearLayout>
