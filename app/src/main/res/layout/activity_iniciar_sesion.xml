@@ -15,27 +15,56 @@
         android:id="@+id/boton_login_facebook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/boton_sesion_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
 
     <com.twitter.sdk.android.core.identity.TwitterLoginButton
         android:id="@+id/twitter_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
 
-    <Button
-        android:id="@+id/boton_cerrar_sesion"
-        style="?android:textAppearanceSmall"
+    <TextView
+        android:id="@+id/tvErrorCuentasEnlazadas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/cerrar_sesion"
-        android:textStyle="bold"
+        android:text="@string/has_enlazado_todas_tus_cuentas"
         android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/desenlazar_cuentas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnDesenlazarFb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/desenlazar_fb"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnDesenlazarGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/desenlazar_google"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnDesenlazarTwitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/desenlazar_twitter"
+            android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>

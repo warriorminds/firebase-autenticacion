@@ -20,34 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CrearCuentaActivity"
-            android:label="@string/titulo_actividad_crear_cuenta"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.warriorminds.firebase.MainActivity" />
-        </activity>
-        <activity android:name=".IniciarSesionCorreoContrasenaActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.warriorminds.firebase.MainActivity" />
-        </activity>
-        <activity android:name=".IniciarSesionGoogleActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.warriorminds.firebase.MainActivity" />
-        </activity>
-        <activity android:name=".IniciarSesionFacebookActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.warriorminds.firebase.MainActivity" />
-        </activity>
-        <activity android:name=".IniciarSesionTwitterActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.warriorminds.firebase.MainActivity" />
-        </activity>
 
         <!-- Agregar Facebook ID -->
         <meta-data
@@ -59,11 +31,6 @@
             android:name="io.fabric.ApiKey"
             android:value="TU_FABRIC_API_KEY" />
 
-        <activity android:name=".UsuariosAnonimosActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.warriorminds.firebase.MainActivity" />
-        </activity>
         <activity android:name=".IniciarSesionActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

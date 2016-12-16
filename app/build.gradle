@@ -32,6 +32,8 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:2.2.0@aar') { // Agregar para Login con Twitter
         transitive = true;
     }
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
 }

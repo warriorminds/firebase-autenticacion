@@ -15,6 +15,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.twitter.sdk.android.Twitter;
 
 public abstract class BaseFirebaseActivity extends AppCompatActivity {
+    public static final String FACEBOOK_ID_PROVEEDOR = "facebook.com";
+    public static final String GOOGLE_ID_PROVEEDOR = "google.com";
+    public static final String TWITTER_ID_PROVEEDOR = "twitter.com";
 
     protected FirebaseAuth autenticacionFirebase;
     protected FirebaseAuth.AuthStateListener listenerAutenticacion;
@@ -41,6 +44,8 @@ public abstract class BaseFirebaseActivity extends AppCompatActivity {
 
     protected abstract void sesionIniciada();
 
+    protected abstract void usuarioAutenticado();
+
     private void inicializarAutenticacion() {
         autenticacionFirebase = FirebaseAuth.getInstance();
 
@@ -49,7 +54,7 @@ public abstract class BaseFirebaseActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser usuario = firebaseAuth.getCurrentUser();
                 if (usuario != null && !usuario.isAnonymous()) {
-                    Toast.makeText(BaseFirebaseActivity.this, "Bienvenido usuario", Toast.LENGTH_SHORT).show();
+                    usuarioAutenticado();
                 }
             }
         };
@@ -72,13 +77,12 @@ public abstract class BaseFirebaseActivity extends AppCompatActivity {
 
     protected void enlazarCuentas(final AuthCredential credencial) {
         FirebaseUser usuario = autenticacionFirebase.getCurrentUser();
-        if (usuario != null && usuario.isAnonymous()) {
+        if (usuario != null) {
             usuario.linkWithCredential(credencial)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(BaseFirebaseActivity.this, "Hubo un error al enlazar la cuenta.", Toast.LENGTH_SHORT).show();
                                 iniciarSesionFirebase(credencial);
                             } else {
                                 sesionIniciada();
